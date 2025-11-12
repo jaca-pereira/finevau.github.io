@@ -1,78 +1,71 @@
 window.HELP_IMPROVE_VIDEOJS = false;
 
-var INTERP_BASE = "./static/interpolation/stacked";
-var NUM_INTERP_FRAMES = 240;
-
-var interp_images = [];
-function preloadInterpolationImages() {
-  for (var i = 0; i < NUM_INTERP_FRAMES; i++) {
-    var path = INTERP_BASE + '/' + String(i).padStart(6, '0') + '.jpg';
-    interp_images[i] = new Image();
-    interp_images[i].src = path;
-  }
-}
-
-function setInterpolationImage(i) {
-  var image = interp_images[i];
-  image.ondragstart = function() { return false; };
-  image.oncontextmenu = function() { return false; };
-  $('#interpolation-image-wrapper').empty().append(image);
-}
-
-
 $(document).ready(function() {
-    // Check for click events on the navbar burger icon
+    // Navbar burger toggle
     $(".navbar-burger").click(function() {
-      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
       $(".navbar-burger").toggleClass("is-active");
       $(".navbar-menu").toggleClass("is-active");
-
     });
 
-    var options = {
-			slidesToScroll: 1,
-			slidesToShow: 3,
-			loop: true,
-			infinite: true,
-			autoplay: false,
-			autoplaySpeed: 3000,
-    }
+    // Leaderboard Table Sorting
+    var sortDirection = {};
 
-		// Initialize all div with carousel class
-    var carousels = bulmaCarousel.attach('.carousel', options);
+    $('.leaderboard-table th.sortable').on('click', function() {
+      var column = $(this).data('sort');
+      var $table = $(this).closest('table');
+      var $tbody = $table.find('tbody');
+      var rows = $tbody.find('tr').toArray();
 
-    // Loop on each carousel initialized
-    for(var i = 0; i < carousels.length; i++) {
-    	// Add listener to  event
-    	carousels[i].on('before:show', state => {
-    		console.log(state);
-    	});
-    }
+      // Toggle sort direction
+      if (!sortDirection[column] || sortDirection[column] === 'desc') {
+        sortDirection[column] = 'asc';
+      } else {
+        sortDirection[column] = 'desc';
+      }
 
-    // Access to bulmaCarousel instance of an element
-    var element = document.querySelector('#my-element');
-    if (element && element.bulmaCarousel) {
-    	// bulmaCarousel instance is available as element.bulmaCarousel
-    	element.bulmaCarousel.on('before-show', function(state) {
-    		console.log(state);
-    	});
-    }
+      // Remove all sort indicators
+      $table.find('th').removeClass('sorted-asc sorted-desc');
 
-    /*var player = document.getElementById('interpolation-video');
-    player.addEventListener('loadedmetadata', function() {
-      $('#interpolation-slider').on('input', function(event) {
-        console.log(this.value, player.duration);
-        player.currentTime = player.duration / 100 * this.value;
-      })
-    }, false);*/
-    preloadInterpolationImages();
+      // Add sort indicator to current column
+      $(this).addClass('sorted-' + sortDirection[column]);
 
-    $('#interpolation-slider').on('input', function(event) {
-      setInterpolationImage(this.value);
+      // Get column index
+      var colIndex = $(this).index();
+
+      // Sort rows
+      rows.sort(function(a, b) {
+        var aVal = $(a).find('td').eq(colIndex).text().trim();
+        var bVal = $(b).find('td').eq(colIndex).text().trim();
+
+        // Try to parse as numbers
+        var aNum = parseFloat(aVal);
+        var bNum = parseFloat(bVal);
+
+        if (!isNaN(aNum) && !isNaN(bNum)) {
+          // Numeric comparison
+          if (sortDirection[column] === 'asc') {
+            return aNum - bNum;
+          } else {
+            return bNum - aNum;
+          }
+        } else {
+          // String comparison
+          if (sortDirection[column] === 'asc') {
+            return aVal.localeCompare(bVal);
+          } else {
+            return bVal.localeCompare(aVal);
+          }
+        }
+      });
+
+      // Re-append sorted rows
+      $.each(rows, function(index, row) {
+        $tbody.append(row);
+      });
+
+      // Update rank column
+      $tbody.find('tr').each(function(index) {
+        $(this).find('td').first().text(index + 1);
+      });
     });
-    setInterpolationImage(0);
-    $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
-
-    bulmaSlider.attach();
-
-})
+});

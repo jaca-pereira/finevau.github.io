@@ -155,3 +155,71 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+/* Leaderboard Table Styles */
+.leaderboard-table {
+  font-size: 0.9rem;
+}
+
+.leaderboard-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.75em;
+  border: 1px solid #dbdbdb;
+}
+
+.leaderboard-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 1.5em;
+}
+
+.leaderboard-table th.sortable:hover {
+  background-color: #efefef;
+}
+
+.leaderboard-table th.sortable::after {
+  content: "⇅";
+  position: absolute;
+  right: 0.5em;
+  opacity: 0.3;
+}
+
+.leaderboard-table th.sorted-asc::after {
+  content: "↑";
+  opacity: 1;
+}
+
+.leaderboard-table th.sorted-desc::after {
+  content: "↓";
+  opacity: 1;
+}
+
+.leaderboard-table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.75em;
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+
+/* Dataset Examples Boxes */
+.box {
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+}
+
+.box:hover {
+  box-shadow: 0 4px 8px rgba(10, 10, 10, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Table Container for Responsive Design */
+.table-container {
+  overflow-x: auto;
+}

@@ -1,0 +1,112 @@
+==============================================
+FineVAU Website - Remaining Manual Tasks
+==============================================
+
+CRITICAL TASKS (Must complete before going live)
+===============================================
+
+☐ 1. Update Author Links (index.html lines 81-87)
+     Replace #TODO with actual personal website URLs for:
+     - João Pereira
+     - Vasco Lopes
+     - João Neves
+     - David Semedo
+
+☐ 2. Update Paper & Resource Links (index.html)
+     - Line 102: Replace #TODO-AAAI-PROCEEDINGS with AAAI paper URL
+     - Line 111: Replace #TODO-ARXIV-LINK with arXiv URL
+     - Line 121: Replace #TODO-GITHUB-REPO with GitHub repository URL
+     - Line 131: Replace #TODO-DATA-DOWNLOAD with dataset download link
+     - Line 632: Update GitHub repo link
+     - Line 682: Update AAAI proceedings link
+     - Line 685: Update GitHub repo link
+
+☐ 3. Add Teaser Video
+     File: static/videos/teaser.mp4
+     - Create 15-30 second demo video
+     - Show FV-Score evaluation process
+     - Keep under 10MB
+
+☐ 4. Add Dataset Example Videos (static/videos/examples/)
+     Create directory and add 6 videos:
+     ☐ robbery.mp4 (annotations already in HTML)
+     ☐ fighting.mp4 + add What/Who/Where annotations
+     ☐ shoplifting.mp4 + add What/Who/Where annotations
+     ☐ accident.mp4 + add What/Who/Where annotations
+     ☐ vandalism.mp4 + add What/Who/Where annotations
+     ☐ arson.mp4 + add What/Who/Where annotations
+
+☐ 5. Add LVLM Comparison Content (static/videos/comparisons/)
+     ☐ Add example1.mp4 video
+     ☐ Update model responses (lines 337, 349, 361, 373, 385-387):
+        - InternVL3 response
+        - Qwen2.5-VL response
+        - LLaVA-Video response
+        - VideoLLaMA3 response
+        - Ground Truth annotations
+
+☐ 6. Add Metric Comparison Content (static/videos/metric-demo/)
+     ☐ Add example.mp4 video
+     ☐ Add model response example (line 423)
+
+
+OPTIONAL TASKS (Recommended but not critical)
+============================================
+
+☐ 7. Update or Remove Google Analytics
+     Line 12: Replace G-PYVRSFMDRL with your tracking ID
+     Or remove lines 11-23 entirely if not using analytics
+
+☐ 8. Add Favicon
+     Create static/images/favicon.svg (or .png)
+     Simple icon representing FineVAU
+
+☐ 9. Add More Models to Leaderboard
+     Copy table row template (lines 541-557)
+     Add results for additional models
+
+
+TESTING CHECKLIST
+================
+
+Before deploying, test locally:
+
+☐ Start local server:
+   python3 -m http.server 8000
+
+☐ Open http://localhost:8000 and verify:
+   ☐ All videos load and play
+   ☐ LVLM tabs switch correctly
+   ☐ Metric comparison buttons work
+   ☐ Leaderboard sorting works (click column headers)
+   ☐ All links work (except still-TODO placeholders)
+   ☐ Mobile responsive design (test in DevTools)
+   ☐ No JavaScript errors in browser console
+   ☐ All images load
+   ☐ Navbar menu works on mobile
+
+
+DEPLOYMENT STEPS
+===============
+
+☐ 1. Final verification of all content
+☐ 2. Commit changes:
+      git add .
+      git commit -m "Complete FineVAU website"
+      git push origin main
+
+☐ 3. Enable GitHub Pages:
+      Repository Settings → Pages → Deploy from 'main' branch
+
+☐ 4. Test live site at: https://[username].github.io/[repo-name]
+☐ 5. Test on multiple devices and browsers
+
+
+NOTES
+=====
+- See IMPLEMENTATION_GUIDE.md for detailed instructions
+- Video requirements: MP4, H.264 codec, under 20MB each
+- Use FFmpeg for video conversion if needed
+- All TODOs in HTML marked with [TODO:...] for easy searching
+
+==============================================
